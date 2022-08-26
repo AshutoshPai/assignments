@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('scripts.ejs') %>
+  <body>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <form method="post" action="/addOrder">
+              <form class="needs-validation" novalidate="">
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label for="header" class="form-label"></label>
+                  </div>
+                  
+                  <div class="col-sm-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="" value="" required="" name="name" />
+                    <div class="invalid-feedback">
+                      Valid Name is required.
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" required="" name="email" />
+                    <div class="invalid-feedback">
+                      Please enter a valid email address for shipping updates.
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" required="" name="address" />
+                    <div class="invalid-feedback">
+                      Please enter a valid address for shipping updates.
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Items:</label>
+                  </div>
+
+                  <div class="col-3">
+                    <label for="items.item1" class="form-label">Item 1</label>
+                    <input type="text" class="form-control" id="items.item1" required="" name="items.item1">
+                    <div class="invalid-feedback">
+                      Please enter Item.
+                    </div>
+                  </div>
+
+                  <div class="col-3">
+                    <label for="items.item2" class="form-label">Item 2</label>
+                    <input type="text" class="form-control" id="items.item2" name="items.item2">
+                    <div class="invalid-feedback">
+                      Please enter Item.
+                    </div>
+                  </div>
+
+                  <div class="col-3">
+                    <label for="items.item3" class="form-label">Item 3</label>
+                    <input type="text" class="form-control" id="items.item3" name="items.item3">
+                    <div class="invalid-feedback">
+                      Please enter Item.
+                    </div>
+                  </div>
+
+                  <div class="col-3">
+                    <label for="items.item4" class="form-label">Item 4</label>
+                    <input type="text" class="form-control" id="items.item4" name="items.item4">
+                    <div class="invalid-feedback">
+                      Please enter Item.
+                    </div>
+                  </div>
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                  Order
+                </button>
+              </form>
+            </form>
+          </div>
+        </div>
+      </div>
+  </body>
+
+</html>

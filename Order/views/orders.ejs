@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('scripts.ejs') %>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <table class="table table-striped">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Items</th>
+              <th>Status</th>
+            </tr>
+
+            <% for(let i=0; i < orders.length; i++) { const order=orders[i]; const items=order.items.item1 + ", " +
+              order.items.item2 + ", " + order.items.item3 + ", " + order.items.item4; const date=new Date(); const
+              orderDate=order.date; const diffInMs=Math.abs(date - orderDate) / (1000 * 60 * 60 * 24); let
+              orderStatus="In progress" ; %>
+              <% if (diffInMs> 2){ %>
+                <% orderStatus="Delivered" ; %>
+                  <% } else if (diffInMs> 1){ %>
+                    <% orderStatus="Dispatched" ; %>
+                      <% } %>
+                        <tr>
+                          <td>
+                            <%= order.name %>
+                          </td>
+                          <td>
+                            <%= order.email %>
+                          </td>
+                          <td>
+                            <%= order.address %>
+                          </td>
+                          <td>
+                            <%= items %>
+                          </td>
+                          <td>
+                            <%= orderStatus %>
+                          </td>
+                        </tr>
+                        <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
