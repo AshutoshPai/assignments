@@ -2,13 +2,19 @@
   "dependencies": {
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^10.0.0",
     "mongodb": "^4.9.0",
     "mongoose": "^6.5.2",
     "pm2": "^5.2.0",
     "socket.io": "^4.5.1",
     "yargs": "^17.5.1"
+  },
+  "scripts": {
+    "test": "mocha ./Testing/tests"
   }
 }
