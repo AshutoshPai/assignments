@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('scripts.ejs') %>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form method="post" action="/addBugs">
+                        <form class="needs-validation" novalidate="">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <h3>Add Bugs</h3>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="title" placeholder="" value=""
+                                        required="" name="title" />
+                                    <div class="invalid-feedback">
+                                        Enter the bug title here
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="assignee" class="form-label">Assignee</label>
+                                    <input type="text" class="form-control" id="assignee" placeholder="" value=""
+                                        required="" name="assignee" />
+                                    <div class="invalid-feedback">
+                                        Enter the assignee name here
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="description" class="form-label">Desription</label>
+                                    <textarea type="text" class="form-control" id="description" required=""
+                                        name="description"></textarea>
+                                    <div class="invalid-feedback">
+                                        Enter valid description
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date" required="" name="date" />
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="time" class="form-label">Time</label>
+                                    <input type="time" class="form-control" id="time" required="" name="time" />
+                                </div>
+
+                                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                                    Report
+                                </button>
+                        </form>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            var date = new Date();
+            var currentDate = date.toISOString().slice(0, 10);
+            var currentTime = date.getHours() + ':' + date.getMinutes();
+            document.getElementById('date').value = currentDate;
+            document.getElementById("time").value = currentTime;
+        </script>
+    </body>
+
+</html>

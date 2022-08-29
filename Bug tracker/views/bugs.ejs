@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('scripts.ejs') %>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Assignee</th>
+                            <th>Leftover days</th>
+                        </tr>
+
+                        <% for(let i=0; i < bugs.length; i++) { const bug=bugs[i]; var today=new Date();
+                            today=today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0' ) + '-' +
+                            String(today.getDate()).padStart(2, '0' ); let todayDate=new Date(today); let
+                            dateDiff=todayDate.getDate() - new Date(bug.date).getDate(); let leftoverDays=3 - dateDiff;
+                            %>
+                            <% if (leftoverDays < 0) { %>
+                                <% leftoverDays="Alert" %>
+                                    <% } %>
+                                        <tr <% if (dateDiff> 3) { %> style="background-color:yellow;" <% }%> >
+                                                <td>
+                                                    <%= bug.title %>
+                                                </td>
+                                                <td>
+                                                    <%= bug.description %>
+                                                </td>
+                                                <td>
+                                                    <%= bug.date %>
+                                                </td>
+                                                <td>
+                                                    <%= bug.time %>
+                                                </td>
+                                                <td>
+                                                    <%= bug.assignee %>
+                                                </td>
+                                                <td>
+                                                    <%= leftoverDays %>
+                                                </td>
+                                        </tr>
+                                        <% } %>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
