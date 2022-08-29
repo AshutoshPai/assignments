@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/scripts.ejs') %>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <ul id="messages"></ul>
+          <form id="chat-form">
+            <p>
+              <input id="chat-message" name="chat-message" />
+              <button>Send</button>
+            </p>
+            <p id="typing"></p>
+          </form>
+          <form id="login-form">
+            <p>
+              <input id="username" name="username" />
+              <button>Login</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      const socket = io();
+      let typingTimer = null;
+      let userTypingNow = {};
+      const chatForm = document.getElementById("chat-form");
+      const input = document.getElementById("chat-message");
+      const messages = document.getElementById("messages");
+      const loginForm = document.getElementById("login-form");
+      const username = document.getElementById("username");
+      const currentUser = document.getElementById("currentUser");
+      const usersList = document.getElementById("users");
+      const typing = document.getElementById("typing");
+      function addMessageToList(msg, isSelf) {
+        const chatMessage = document.createElement("li");
+        const { message, user } = msg;
+        chatMessage.innerText = `${user}: ${message}`;
+        chatMessage.classList.add(isSelf ? "self" : "friend");
+        messages.appendChild(chatMessage);
+
+        const chatTime = document.createElement("li");
+        chatTime.innerText = `${new Date().getHours()} : ${new Date().getMinutes()}`;
+        chatTime.classList.add(isSelf ? "selfTime" : "friendTime");
+        messages.appendChild(chatTime);
+      }
+      function showWhoisTyping() {
+        const names = Object.keys(userTypingNow);
+        if (names.length > 0) {
+          typing.innerText = `Typing ${names.join(", ")}`;
+        }
+        else {
+          typing.innerText = "";
+        }
+
+      }
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (username.value !== "") {
+          socket.emit("login", username.value);
+          loginForm.style.display = "none";
+          chatForm.style.display = "block";
+
+          username.value = "";
+        }
+      });
+      chatForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (input.value !== "") {
+          socket.emit("chat-message", input.value);
+          addMessageToList({ message: input.value, user: "me" }, true);
+          input.value = "";
+        }
+      });
+      input.addEventListener("keyup", () => {
+        clearTimeout(typingTimer);
+        socket.emit("typing", "true");
+        typingTimer = setTimeout(() => {
+          socket.emit("typing", "false");
+        }, 1000);
+      });
+      socket.on("message", (msg) => {
+        addMessageToList(msg, false);
+      });
+      socket.on("newuser", (name) => {
+        const newuser = document.createElement("li");
+        newuser.innerText = name;
+        usersList.appendChild(newuser);
+      });
+      socket.on("typingnow", (state) => {
+        const { typing, username } = state;
+        if (typing === "true") {
+          userTypingNow[username] = typing;
+        } else {
+          delete userTypingNow[username];
+        }
+        showWhoisTyping();
+      });
+    </script>
+  </body>
+
+</html>
